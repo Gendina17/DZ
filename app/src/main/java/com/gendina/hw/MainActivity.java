@@ -24,7 +24,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-
+private static final int FINAL_COUNT=101;
+private static final String KEY="save";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,21 +33,23 @@ public class MainActivity extends AppCompatActivity {
 
 
         if (savedInstanceState == null) {
-            fragmentfirst.i = 101;
+            FragmentFirst.element_count = FINAL_COUNT;
+            FragmentFirst first = new FragmentFirst();
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .add(R.id.fr, first)
+                    .commit();
         }
         else {
-            fragmentfirst.i = savedInstanceState.getInt("ii");
+            FragmentFirst.element_count = savedInstanceState.getInt(KEY);
+
         }
-        fragmentfirst first = new fragmentfirst();
-        getSupportFragmentManager()
-                .beginTransaction()
-                .add(R.id.fr, first)
-                .commit();
+
     }
 
-    @Override
+   @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
-        outState.putInt("ii", fragmentfirst.i);
+        outState.putInt(KEY, FragmentFirst.element_count);
         super.onSaveInstanceState(outState);
     }
 

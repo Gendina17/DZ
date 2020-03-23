@@ -13,11 +13,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 
-public class nomer extends Fragment {
+public class NumberFragment extends Fragment {
 
     String txt;
 
-    public nomer(String txt) {
+    public NumberFragment(String txt) {
         this.txt = txt;
     }
 
@@ -33,20 +33,17 @@ public class nomer extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_nomer, container, false);
-        TextView asd;
-        asd = v.findViewById(R.id.txt);
-        asd.setText(txt);
+        View view = inflater.inflate(R.layout.fragment_number, container, false);
+        TextView text;
+        text = view.findViewById(R.id.txt);
+        text.setText(txt);
         if (Integer.parseInt(txt) % 2 == 0)
-            asd.setTextColor(ContextCompat.getColor(getContext(), R.color.colorRed));
+            text.setTextColor(ContextCompat.getColor(getContext(), R.color.colorRed));
         else
-            asd.setTextColor(ContextCompat.getColor(getContext(), R.color.colorBlue));
-        return  v;
+            text.setTextColor(ContextCompat.getColor(getContext(), R.color.colorBlue));
+        return  view;
     }
 
-   /* static nomer newFragment(){
-        nomer fragment = new nomer();
-        return fragment;
-    } */
+
 
 }
