@@ -24,9 +24,9 @@ import java.util.ArrayList;
 
 public class FragmentFirst extends Fragment {
 
-    private RecyclerView list_number;
+    private RecyclerView listNumber;
     private Button button;
-    public int element_count = 100;
+    public int elementCount = 100;
     private ArrayList<Data> resurse = new ArrayList<>();
     private MyAdapter adapter = new MyAdapter(resurse);
     private final String KEY="save";
@@ -40,10 +40,10 @@ public class FragmentFirst extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         if (savedInstanceState != null ) {
-            element_count = savedInstanceState.getInt(KEY);
+            elementCount = savedInstanceState.getInt(KEY);
         }
         resurse.clear();
-        for (int j = 1; j <= element_count; j++)
+        for (int j = 1; j <= elementCount; j++)
             resurse.add(new Data(Integer.toString(j)));
         View view = inflater.inflate(R.layout.fragment_first, container, false);
 
@@ -55,28 +55,28 @@ public class FragmentFirst extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         button = view.findViewById(R.id.but);
-        list_number = view.findViewById(R.id.list);
-        list_number.setAdapter(adapter);
+        listNumber = view.findViewById(R.id.list);
+        listNumber.setAdapter(adapter);
 
 
         int col;
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) col =4;
         else col = 3;
-        list_number.setLayoutManager(new GridLayoutManager(view.getContext(), col));
+        listNumber.setLayoutManager(new GridLayoutManager(view.getContext(), col));
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                element_count++;
-                resurse.add(new Data(Integer.toString(element_count)));
-                adapter.notifyItemInserted(element_count);
+                elementCount++;
+                resurse.add(new Data(Integer.toString(elementCount)));
+                adapter.notifyItemInserted(elementCount);
             }
         });
     }
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
-        outState.putInt(KEY, element_count);
+        outState.putInt(KEY, elementCount);
         super.onSaveInstanceState(outState);
     }
 
@@ -98,11 +98,11 @@ public class FragmentFirst extends Fragment {
 
         @Override
         public void onBindViewHolder(@NonNull MyHolder holder, int position) {
-               holder.number_view.setText(data.get(position).number_txt);
+               holder.numberView.setText(data.get(position).numberTxt);
             if (position % 2 == 0)
-                holder.number_view.setTextColor(ContextCompat.getColor(getContext(), R.color.colorBlue));
+                holder.numberView.setTextColor(ContextCompat.getColor(getContext(), R.color.colorBlue));
             else
-                holder.number_view.setTextColor(ContextCompat.getColor(getContext(), R.color.colorRed));
+                holder.numberView.setTextColor(ContextCompat.getColor(getContext(), R.color.colorRed));
 
         }
 
@@ -113,17 +113,17 @@ public class FragmentFirst extends Fragment {
     }
 
     class MyHolder extends RecyclerView.ViewHolder {
-        TextView number_view;
+        TextView numberView;
 
         public MyHolder(@NonNull View itemView) {
             super(itemView);
 
-            number_view = itemView.findViewById(R.id.nomer);
+            numberView = itemView.findViewById(R.id.nomer);
 
-            number_view.setOnClickListener(new View.OnClickListener() {
+            numberView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    String txt = number_view.getText().toString();
+                    String txt = numberView.getText().toString();
                     Fragment fragmen = new NumberFragment(txt);
 
 
@@ -145,11 +145,11 @@ public class FragmentFirst extends Fragment {
 
 
     class Data {
-        String number_txt;
+        String numberTxt;
 
 
-        public Data(String number_txt) {
-            this.number_txt = number_txt;
+        public Data(String numberTxt) {
+            this.numberTxt = numberTxt;
 
         }
     }
