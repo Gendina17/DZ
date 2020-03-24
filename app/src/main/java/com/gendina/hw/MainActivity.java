@@ -25,6 +25,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,21 +33,18 @@ public class MainActivity extends AppCompatActivity {
 
 
         if (savedInstanceState == null) {
-            fragmentfirst.i = 101;
+            FragmentFirst first = new FragmentFirst();
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .add(R.id.fr, first)
+                    .commit();
         }
-        else {
-            fragmentfirst.i = savedInstanceState.getInt("ii");
-        }
-        fragmentfirst first = new fragmentfirst();
-        getSupportFragmentManager()
-                .beginTransaction()
-                .add(R.id.fr, first)
-                .commit();
+
+
     }
 
-    @Override
+   @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
-        outState.putInt("ii", fragmentfirst.i);
         super.onSaveInstanceState(outState);
     }
 
