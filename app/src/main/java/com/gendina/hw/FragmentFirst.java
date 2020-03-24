@@ -26,9 +26,11 @@ public class FragmentFirst extends Fragment {
 
     private RecyclerView list_number;
     private Button button;
-    public static int element_count = 0;
+    public int element_count = 100;
     private ArrayList<Data> resurse = new ArrayList<>();
     private MyAdapter adapter = new MyAdapter(resurse);
+    private final String KEY="save";
+
 
 
 
@@ -37,9 +39,12 @@ public class FragmentFirst extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-resurse.clear();
-      {for (int j = 1; j < element_count; j++)
-            resurse.add(new Data(Integer.toString(j)));}
+        if (savedInstanceState != null ) {
+            element_count = savedInstanceState.getInt(KEY);
+        }
+        resurse.clear();
+        for (int j = 1; j <= element_count; j++)
+            resurse.add(new Data(Integer.toString(j)));
         View view = inflater.inflate(R.layout.fragment_first, container, false);
 
         return view;
@@ -51,8 +56,7 @@ resurse.clear();
 
         button = view.findViewById(R.id.but);
         list_number = view.findViewById(R.id.list);
-
-       list_number.setAdapter(adapter);
+        list_number.setAdapter(adapter);
 
 
         int col;
@@ -63,13 +67,18 @@ resurse.clear();
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                resurse.add(new Data(Integer.toString(element_count)));
-                adapter.notifyItemInserted(element_count-1);
                 element_count++;
+                resurse.add(new Data(Integer.toString(element_count)));
+                adapter.notifyItemInserted(element_count);
             }
         });
     }
 
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        outState.putInt(KEY, element_count);
+        super.onSaveInstanceState(outState);
+    }
 
 
     class MyAdapter extends RecyclerView.Adapter<MyHolder> {
